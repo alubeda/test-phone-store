@@ -1,0 +1,68 @@
+@text-color: #222;
+@background-color: white;
+@header-border-color: #dee206;
+
+:root {
+    font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+    color-scheme: light dark;
+    color: @text-color;
+    background-color: @background-color;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    margin: 0;
+    display: flex;
+    min-width: 320px;
+    min-height: 100vh;
+}
+
+#root {
+    max-width: 1280px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.app-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    border-bottom: 1px solid @header-border-color;
+
+    & > a {
+        text-decoration: none;
+        color: inherit;
+    }
+}
+
+.app-title {
+    font-size: 1.25rem;
+    margin: 0;
+    position: relative;
+    display: inline-block;
+    line-height: 1.5rem;
+    padding-left: 2rem;
+
+    &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: .1rem;
+        width: 1.5rem;
+        height: 1.5rem;
+        background-image: url('/logo.svg');
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+}
+
+.breadcrumbs {
+    flex: 1;
+    margin: 0 2rem;
+}

@@ -1,12 +1,10 @@
 import { useState } from 'react'
-import './App.css'
+import Header from '@/components/Header.jsx'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <h1>PocketLab Phone Store</h1>
+      <Header />
       <p>Coming soon...</p>
     </>
   )
