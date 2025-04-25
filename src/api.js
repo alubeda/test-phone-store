@@ -10,3 +10,14 @@ export const fetchProducts = async (searchTerm = '') => {
 
     return data
 }
+
+export const fetchProduct = async (productId) => {
+    const url = `${BASE_API_URL}/product/${productId}`
+    const response = await fetch(url)
+    if (!response.ok) {
+        throw new Error('Error fetching product')
+    }
+    const data = await response.json()
+
+    return data
+}
