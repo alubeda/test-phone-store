@@ -1,10 +1,8 @@
-import { Link } from 'react-router-dom'
-
-export default function Item({ product, onClick }) {
+export default function Item({ product }) {
     const { imgUrl, brand, model, price } = product
 
     return (
-        <article className="item-card" onClick="{onClick}">
+        <article className="item-card">
             <figure className="item-figure">
                 <img src={imgUrl} alt={`Imagen de ${brand} ${model}`} className="item-image" />
                 <figcaption className="item-caption">{brand} {model}</figcaption>

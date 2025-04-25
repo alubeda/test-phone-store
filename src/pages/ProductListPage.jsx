@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import Search from '@/components/Search.jsx'
 import Item from '@/components/Item.jsx'
 import { fetchProducts } from '@/api.js'
+import { Link } from 'react-router-dom'
 
 export default function ProductListPage() {
     const [products, setProducts] = useState([])
@@ -22,10 +23,6 @@ export default function ProductListPage() {
         console.warn(`Searching for: ${searchTerm}`)
     }
 
-    const handleItemClick = (id) => {
-        console.warn(`Product selected with ID: ${id}`)
-    }
-
     return (
         <div className="product-list-page">
             {isLoading && (
@@ -44,7 +41,9 @@ export default function ProductListPage() {
                 <ul className="product-grid">
                 {products.map(product => (
                     <li key={product.id} className="product-card">
-                        <Item product={product} onClick={handleItemClick} />
+                        <Link to={`/products/${product.id}`}>
+                            <Item product={product} />
+                        </Link>
                     </li>
                 ))}
                 </ul>
