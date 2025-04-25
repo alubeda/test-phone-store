@@ -1,6 +1,7 @@
 @text-color: #222;
 @background-color: white;
 @header-border-color: #dee206;
+@item-border-color: #e5e7eb;
 
 @error-message-color: #b91c1c;
 @info-message-color: #1e3a8a;
@@ -129,4 +130,85 @@ body {
     color: @success-message-color;
     background-color: fade(@success-message-color, 10%);
     border-color: fade(@success-message-color, 20%);
+}
+
+.item-card {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    border: 1px solid @item-border-color;
+    border-radius: 0.75rem;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.2s ease;
+    cursor: pointer;
+
+    &:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+}
+
+.item-figure {
+    margin: 0;
+}
+
+.item-image {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    margin-bottom: 0.75rem;
+}
+
+.item-content {
+    text-align: center;
+}
+
+.item-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.item-price data {
+    color: @success-message-color;
+    font-weight: 500;
+}
+
+.unavailable-item {
+    color: @error-message-color;
+}
+
+.item-caption {
+  position: absolute;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0;
+
+    @media (min-width: 480px) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (min-width: 768px) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media (min-width: 1024px) {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.product-card {
+    height: 100%;
 }

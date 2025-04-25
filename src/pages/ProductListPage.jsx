@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import Search from '@/components/Search.jsx'
-import Item from '@/components/Search.jsx'
+import Item from '@/components/Item.jsx'
 import { fetchProducts } from '@/api.js'
 
 export default function ProductListPage() {
@@ -20,6 +20,10 @@ export default function ProductListPage() {
 
     const handleSearch = (searchTerm) => {
         console.warn(`Searching for: ${searchTerm}`)
+    }
+
+    const handleItemClick = (id) => {
+        console.warn(`Product selected with ID: ${id}`)
     }
 
     return (
