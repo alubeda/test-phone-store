@@ -17,9 +17,13 @@ export default function Description({ product }) {
     return (
         <article className="product-description">
             <h2 className="name">{ brand } { model }</h2>
-            <p className="price">
-                <data value={price}>{price} €</data>
-            </p>
+            { price ? (
+                <p className="price">
+                    <data value={price}>{price} €</data>
+                </p>
+            ) : (
+                <p className="unavailable-item">Product unavailable</p>
+            )}
 
             <dl className="product-details">
                 <dt>CPU</dt>

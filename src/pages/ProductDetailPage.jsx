@@ -59,7 +59,9 @@ export default function ProductListPage() {
                     <Image product={product} />
                     <div className="product-info">
                         <Description product={product} />
-                        <Actions options={product.options} onSelect={addToCart} />
+                        {product.price && (
+                            <Actions options={product.options} onSelect={addToCart} />
+                        )}
                         {hasCartError && (
                             <p className="user-message error-message">There was an error adding this product to the cart.</p>
                         )}
