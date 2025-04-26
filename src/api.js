@@ -21,3 +21,25 @@ export const fetchProduct = async (productId) => {
 
     return data
 }
+
+export const addProductToCart = async ({ id, storage, colour }) => {
+    const url = `${BASE_API_URL}/cart`
+
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            id,
+            colorCode: colour,
+            storageCode: storage,
+        }),
+    })
+
+    if (!response.ok) {
+        throw new Error('Failed to add product to cart')
+    }
+
+    return response.json()
+}

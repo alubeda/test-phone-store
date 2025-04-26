@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import { useParams, Link } from 'react-router-dom'
-import { fetchProduct } from '@/api.js'
+import { useParams, Link, data } from 'react-router-dom'
+import { fetchProduct, addProductToCart } from '@/api.js'
 import Image from '@/components/Product/Image.jsx'
 import Description from '@/components/Product/Description.jsx'
 import Actions from '@/components/Product/Actions.jsx'
@@ -9,17 +9,35 @@ export default function ProductListPage() {
     const { productId } = useParams()
     const [product, setProduct] = useState({})
     const [isLoading, setIsLoading] = useState(true)
-    const [hasError, setHasError] = useState(false)
+    const [hasFetchError, setHasFetchError] = useState(false)
+    const [hasCartError, setHasCartError] = useState(false)
 
     useEffect(() => {
         fetchProduct(productId)
             .then(data => {
                 setProduct(data)
-                setHasError(false)
+                setHasFetchError(false)
             })
-            .catch(() => setHasError(true))
+            .catch(() => setHasFetchError(true))
             .finally(() => setIsLoading(false))
     }, [productId])
+
+    const addToCart = ({ storage, colour }) => {
+        setIsLoading(true)
+
+        addProductToCart({
+            id: productId,
+            storage,
+            colour,
+        })
+        .then(result => {
+            setHasCartError(false)
+            // TODO: Handle cart
+            console.warn('Product added to cart', result)
+        })
+        .catch(() => setHasCartError(true))
+        .finally(() => setIsLoading(false))
+    }
 
     return (
         <div className="product-detail-page">
@@ -33,7 +51,7 @@ export default function ProductListPage() {
                 )}
             </div>
 
-            {hasError ? (
+            {hasFetchError ? (
                 <p className="user-message error-message">There was an error fetching this product.</p>
             ) : !isLoading && !product ? (
                 <p className="user-message info-message">Product not found.</p>
@@ -41,7 +59,10 @@ export default function ProductListPage() {
                     <Image product={product} />
                     <div className="product-info">
                         <Description product={product} />
-                        <Actions product={product} />
+                        <Actions options={product.options} onSelect={addToCart} />
+                        {hasCartError && (
+                            <p className="user-message error-message">There was an error adding this product to the cart.</p>
+                        )}
                     </div>
                 </>
             }
