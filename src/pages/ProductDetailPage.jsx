@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
-import { useParams, Link, data } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { fetchProduct, addProductToCart } from '@/api.js'
 import Image from '@/components/Product/Image.jsx'
 import Description from '@/components/Product/Description.jsx'
 import Actions from '@/components/Product/Actions.jsx'
+import { useCart } from '@/context/CartContext'
 
 export default function ProductListPage() {
     const { productId } = useParams()
@@ -11,6 +12,8 @@ export default function ProductListPage() {
     const [isLoading, setIsLoading] = useState(true)
     const [hasFetchError, setHasFetchError] = useState(false)
     const [hasCartError, setHasCartError] = useState(false)
+
+    const { updateCartCount } = useCart()
 
     useEffect(() => {
         fetchProduct(productId)
@@ -32,8 +35,7 @@ export default function ProductListPage() {
         })
         .then(result => {
             setHasCartError(false)
-            // TODO: Handle cart
-            console.warn('Product added to cart', result)
+            updateCartCount(result.count)
         })
         .catch(() => setHasCartError(true))
         .finally(() => setIsLoading(false))

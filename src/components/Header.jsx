@@ -1,12 +1,13 @@
 import { Link, useLocation } from 'react-router-dom'
+import { useCart } from '@/context/CartContext'
 
 export default function Header() {
     const location = useLocation()
 
+    const { cartCount } = useCart()
+
     const breadcrumbs = location.pathname.split('/').filter(Boolean)
     console.warn({ breadcrumbs })
-
-    const cartItems = 2
 
     return (
         <header className="app-header">
@@ -20,7 +21,7 @@ export default function Header() {
 
             <div className="cart">
                 <span role="img" aria-label="Cart">🛒</span>{' '}
-                <strong>{cartItems}</strong>
+                <strong>{ cartCount }</strong>
             </div>
         </header>
     )
