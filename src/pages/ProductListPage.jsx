@@ -3,6 +3,7 @@ import Search from '@/components/Search.jsx'
 import Item from '@/components/Item.jsx'
 import { fetchProducts } from '@/api.js'
 import { Link } from 'react-router-dom'
+import { useDocumentTitle } from '@/hooks/useDocumentTitle'
 
 export default function ProductListPage() {
     const [products, setProducts] = useState([])
@@ -18,6 +19,8 @@ export default function ProductListPage() {
             .catch(() => setHasError(true))
             .finally(() => setIsLoading(false))
     }, [])
+
+    useDocumentTitle('Product List')
 
     const handleSearch = (searchTerm) => {
         console.warn(`Searching for: ${searchTerm}`)

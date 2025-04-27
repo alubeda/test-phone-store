@@ -1,5 +1,6 @@
 import { Link, useLocation } from 'react-router-dom'
 import { useCart } from '@/context/CartContext'
+import Breadcrumbs from '@/components/Breadcrumbs.jsx'
 
 export default function Header() {
     const location = useLocation()
@@ -15,9 +16,7 @@ export default function Header() {
                 <h1 className="app-title">PocketLab Phone Store</h1>
             </Link>
 
-            <nav className="breadcrumbs">
-                <Link to="/">Home</Link>
-            </nav>
+            <Breadcrumbs />
 
             <div className="cart">
                 <span role="img" aria-label="Cart">🛒</span>{' '}

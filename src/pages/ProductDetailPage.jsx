@@ -5,6 +5,7 @@ import Image from '@/components/Product/Image.jsx'
 import Description from '@/components/Product/Description.jsx'
 import Actions from '@/components/Product/Actions.jsx'
 import { useCart } from '@/context/CartContext'
+import { useDocumentTitle } from '@/hooks/useDocumentTitle'
 
 export default function ProductListPage() {
     const { productId } = useParams()
@@ -24,6 +25,7 @@ export default function ProductListPage() {
             .catch(() => setHasFetchError(true))
             .finally(() => setIsLoading(false))
     }, [productId])
+    useDocumentTitle(product ? `${product.brand} ${product.model}` : 'Product Detail')
 
     const addToCart = ({ storage, colour }) => {
         setIsLoading(true)
