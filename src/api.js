@@ -46,27 +46,38 @@ const fetchData = async(url) => {
     return data
 }
 
-export const fetchProducts = async (searchTerm = '') => {
-    const url = `${BASE_API_URL}/product`
+export const fetchProducts = async ({ term = '', page = 1, limit }) => {
+    const url = new URL(`${BASE_API_URL}/product`)
+    url.searchParams.set('term', term)
+    url.searchParams.set('page', page)
 
     try {
-        const products = await fetchData(`${url}?search=${searchTerm}`)
-
-        if (!searchTerm) {
-            return products
-        }
+        const allProducts = await fetchData(url)
 
         // Filter simulation since there is no apparent method to filter via API
-        const searchTerms = searchTerm.toLowerCase().split(' ').filter(Boolean)
+        const searchTerms = term ? term.toLowerCase().split(' ').filter(Boolean) : []
 
-        return products.filter(product => {
-            const brand = product.brand.toLowerCase()
-            const model = product.model.toLowerCase()
+        const filteredProducts = searchTerms.length > 0
+            ? allProducts.filter(product => {
+                const brand = product.brand.toLowerCase()
+                const model = product.model.toLowerCase()
 
-            return searchTerms.every(searchTerm => {
-                return brand.includes(searchTerm) || model.includes(searchTerm)
+                return searchTerms.every(searchTerm => {
+                    return brand.includes(searchTerm) || model.includes(searchTerm)
+                })
             })
-        })
+            : allProducts.slice()
+
+        const products = filteredProducts.slice((page - 1) * limit, page * limit)
+
+        const pagination = {
+            currentPage: page,
+            totalPages: limit !== undefined ? Math.ceil(filteredProducts.length / limit) : 0,
+            totalItems: filteredProducts.length,
+            pageSize: limit,
+        }
+
+        return { products, pagination }
     } catch (error) {
         throw new Error('Error fetching products')
     }
