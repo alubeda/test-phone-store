@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types';
 const DEBOUNCE_TIME = 300
 
 export default function Search({ onSearch }) {
@@ -15,7 +16,7 @@ export default function Search({ onSearch }) {
 
     useEffect(() => {
         onSearch(debouncedValue)
-    }, [debouncedValue])
+    }, [debouncedValue, onSearch])
 
     const handleInputChange = event => {
         setInputValue(event.target.value)
@@ -26,4 +27,8 @@ export default function Search({ onSearch }) {
             <input type="text" placeholder="Search..." onChange={handleInputChange} />
         </div>
     )
+}
+
+Search.propTypes = {
+    onSearch: PropTypes.func.isRequired,
 }

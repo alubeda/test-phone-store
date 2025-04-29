@@ -1,3 +1,5 @@
+import React from 'react'
+import PropTypes from 'prop-types'
 import Image from '@/components/Product/Image.jsx'
 
 export default function Item({ product }) {
@@ -18,4 +20,12 @@ export default function Item({ product }) {
             </div>
         </article>
     )
+}
+
+Item.propTypes = {
+    product: PropTypes.shape({
+        brand: PropTypes.string.isRequired,
+        model: PropTypes.string.isRequired,
+        price: PropTypes.number,
+    }).isRequired,
 }

@@ -1,3 +1,6 @@
+import React from 'react'
+import PropTypes from 'prop-types'
+
 export default function Description({ product }) {
     const {
         brand,
@@ -55,4 +58,21 @@ export default function Description({ product }) {
             </dl>
         </article>
     )
+}
+
+Description.propTypes = {
+    product: PropTypes.shape({
+        brand: PropTypes.string.isRequired,
+        model: PropTypes.string.isRequired,
+        price: PropTypes.number.isRequired,
+        cpu: PropTypes.string.isRequired,
+        ram: PropTypes.string.isRequired,
+        os: PropTypes.string.isRequired,
+        displayResolution: PropTypes.string.isRequired,
+        battery: PropTypes.string.isRequired,
+        primaryCamera: PropTypes.string.isRequired,
+        secondaryCamera: PropTypes.string,
+        dimentions: PropTypes.string.isRequired,
+        weight: PropTypes.number.isRequired,
+    }).isRequired,
 }

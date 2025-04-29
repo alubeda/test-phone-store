@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
 
 export default function Actions({ options, onSelect }) {
     const [storageOptions, setStorageOptions] = useState([])
@@ -7,7 +8,7 @@ export default function Actions({ options, onSelect }) {
     const [selectedColour, setSelectedColour] = useState('')
 
     useEffect(() => {
-        if (!!options) {
+        if (options) {
             setStorageOptions(options?.storages || [])
             setColourOptions(options?.colors || [])
 
@@ -53,4 +54,18 @@ export default function Actions({ options, onSelect }) {
         </div>
         </>
     )
+}
+
+Actions.propTypes = {
+    options: PropTypes.shape({
+        storages: PropTypes.arrayOf(PropTypes.shape({
+            code: PropTypes.string.isRequired,
+            name: PropTypes.string.isRequired,
+        })),
+        colors: PropTypes.arrayOf(PropTypes.shape({
+            code: PropTypes.string.isRequired,
+            name: PropTypes.string.isRequired,
+        })),
+    }),
+    onSelect: PropTypes.func.isRequired,
 }

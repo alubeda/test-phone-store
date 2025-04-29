@@ -78,7 +78,7 @@ export const fetchProducts = async ({ term = '', page = 1, limit }) => {
         }
 
         return { products, pagination }
-    } catch (error) {
+    } catch {
         throw new Error('Error fetching products')
     }
 }
@@ -87,7 +87,7 @@ export const fetchProduct = async (productId) => {
     const url = `${BASE_API_URL}/product/${productId}`
     try {
         return fetchData(url)
-    } catch (error) {
+    } catch {
         throw new Error('Error fetching product')
     }
 }

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import Search from '@/components/Search.jsx'
 import Item from '@/components/Item.jsx'
 import { fetchProducts } from '@/api.js'
@@ -14,17 +14,19 @@ export default function ProductListPage() {
     const term = searchParams.get('term') || ''
     const page = parseInt(searchParams.get('page')) || 1
 
+    const PAGE_SIZE = 20
+
     const [pagination, setPagination] = useState({
         currentPage: page,
         totalPages: 0,
         totalItems: 0,
-        pageSize: 20,
+        pageSize: PAGE_SIZE,
     })
 
     useEffect(() => {
         setIsLoading(true)
 
-        fetchProducts({ term, page, limit: pagination.pageSize })
+        fetchProducts({ term, page, limit: PAGE_SIZE })
             .then(({ products, pagination }) => {
                 setProducts(products)
                 setPagination(pagination)

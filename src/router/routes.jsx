@@ -1,3 +1,4 @@
+import React from 'react'
 import { Navigate } from 'react-router-dom'
 import ProductListPage from '@/pages/ProductListPage.jsx'
 import ProductDetailPage from '@/pages/ProductDetailPage.jsx'
