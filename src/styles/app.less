@@ -10,6 +10,13 @@
 @info-message-color: #1e3a8a;
 @success-message-color: #166534;
 
+@input-border: #ccc;
+@input-focus-border: @lightblue;
+@input-bg: white;
+@input-text: @text-color;
+@input-radius: 6px;
+@input-padding: 0.5rem 1rem;
+
 :root {
     font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
     line-height: 1.5;
@@ -376,5 +383,33 @@ body {
 
     &:hover, &:active {
         color: darken(@link-color, 10%);
+    }
+}
+
+.search {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+
+    input {
+        border: 1px solid @input-border;
+        background-color: @input-bg;
+        color: @input-text;
+        border-radius: @input-radius;
+        padding: @input-padding;
+        font-size: 1rem;
+        width: 100%;
+        max-width: 400px;
+        transition: border-color .2s, box-shadow .2s;
+
+        &:focus {
+            border-color: @input-focus-border;
+            box-shadow: 0 0 0 3px fade(@input-focus-border, 30%);
+            outline: none;
+        }
+
+        &::placeholder {
+            color: fade(@input-text, 50%);
+        }
     }
 }
