@@ -50,7 +50,23 @@ export const fetchProducts = async (searchTerm = '') => {
     const url = `${BASE_API_URL}/product`
 
     try {
-        return fetchData(`${url}?search=${searchTerm}`)
+        const products = await fetchData(`${url}?search=${searchTerm}`)
+
+        if (!searchTerm) {
+            return products
+        }
+
+        // Filter simulation since there is no apparent method to filter via API
+        const searchTerms = searchTerm.toLowerCase().split(' ').filter(Boolean)
+
+        return products.filter(product => {
+            const brand = product.brand.toLowerCase()
+            const model = product.model.toLowerCase()
+
+            return searchTerms.every(searchTerm => {
+                return brand.includes(searchTerm) || model.includes(searchTerm)
+            })
+        })
     } catch (error) {
         throw new Error('Error fetching products')
     }

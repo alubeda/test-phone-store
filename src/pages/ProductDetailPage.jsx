@@ -45,7 +45,7 @@ export default function ProductListPage() {
 
     return (
         <div className="product-detail-page">
-            <Link to="/products" className="back-link">← Back to product list</Link>
+            <Link to="/products" className="back-link">Back to product list</Link>
 
             <div className="product-detail-grid">
                 {isLoading && (

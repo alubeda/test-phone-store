@@ -9,21 +9,24 @@ export default function ProductListPage() {
     const [products, setProducts] = useState([])
     const [isLoading, setIsLoading] = useState(true)
     const [hasError, setHasError] = useState(false)
+    const [searchTerm, setSearchTerm] = useState('')
 
     useEffect(() => {
-        fetchProducts()
+        setIsLoading(true)
+
+        fetchProducts(searchTerm)
             .then(data => {
                 setProducts(data)
                 setHasError(false)
             })
             .catch(() => setHasError(true))
             .finally(() => setIsLoading(false))
-    }, [])
+    }, [searchTerm])
 
     useDocumentTitle('Product List')
 
     const handleSearch = (searchTerm) => {
-        console.warn(`Searching for: ${searchTerm}`)
+        setSearchTerm(searchTerm)
     }
 
     return (
