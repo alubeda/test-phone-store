@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom'
 import '@/styles/app.less'
 import App from './App.jsx'
 
-createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById('page-wrapper')).render(
   <StrictMode>
     <BrowserRouter>
       <App />
