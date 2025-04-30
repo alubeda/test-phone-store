@@ -46,13 +46,13 @@ const fetchData = async(url) => {
     return data
 }
 
-export const fetchProducts = async ({ term = '', page = 1, limit }) => {
+export const fetchProducts = async ({ term = '', page = 1, limit = Infinity } = {}) => {
     const url = new URL(`${BASE_API_URL}/product`)
     url.searchParams.set('term', term)
     url.searchParams.set('page', page)
 
     try {
-        const allProducts = await fetchData(url)
+        const allProducts = await fetchData(url.toString())
 
         // Filter simulation since there is no apparent method to filter via API
         const searchTerms = term ? term.toLowerCase().split(' ').filter(Boolean) : []
@@ -72,9 +72,9 @@ export const fetchProducts = async ({ term = '', page = 1, limit }) => {
 
         const pagination = {
             currentPage: page,
-            totalPages: limit !== undefined ? Math.ceil(filteredProducts.length / limit) : 0,
+            totalPages: limit !== Infinity ? Math.ceil(filteredProducts.length / limit) : 1,
             totalItems: filteredProducts.length,
-            pageSize: limit,
+            pageSize: limit === Infinity ? filteredProducts.length : limit,
         }
 
         return { products, pagination }
@@ -86,7 +86,9 @@ export const fetchProducts = async ({ term = '', page = 1, limit }) => {
 export const fetchProduct = async (productId) => {
     const url = `${BASE_API_URL}/product/${productId}`
     try {
-        return fetchData(url)
+        const product = await fetchData(url)
+
+        return product
     } catch {
         throw new Error('Error fetching product')
     }
